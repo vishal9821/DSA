@@ -45,3 +45,44 @@ def is_balanced_parentheses(val:str):
         return False
    
     
+def reverse_string(string:str):
+    mystr = list(string)
+    mystack = Stack()
+    revstr = []
+    for i in mystr:
+        mystack.push(i)
+    for i in range(mystack.size()):
+        char = mystack.pop()
+        revstr.append(char)
+    print(''.join(revstr))
+
+def sort_stack(obj:Stack):
+    if obj.is_empty():
+        return None
+    else:
+        sorted_stack = Stack()
+        while not obj.is_empty():
+            temp = obj.pop()
+            if sorted_stack.is_empty():
+                sorted_stack.push(temp)
+            else:
+                if temp < sorted_stack.peek():
+                    obj.push(sorted_stack.pop())
+                    sorted_stack.push(temp)
+                else:
+                    sorted_stack.push(temp)
+        while not sorted_stack.is_empty():
+            temp = sorted_stack.pop()
+            obj.push(temp)
+    obj.print_stack()
+                         
+
+mystack = Stack()
+mystack.push(5)
+mystack.push(3)
+mystack.push(1)
+mystack.push(4)
+mystack.push(8)
+
+sort_stack(mystack)
+
