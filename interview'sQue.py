@@ -56,33 +56,71 @@ def reverse_string(string:str):
         revstr.append(char)
     print(''.join(revstr))
 
-def sort_stack(obj:Stack):
-    if obj.is_empty():
-        return None
-    else:
-        sorted_stack = Stack()
-        while not obj.is_empty():
-            temp = obj.pop()
-            if sorted_stack.is_empty():
-                sorted_stack.push(temp)
-            else:
-                if temp < sorted_stack.peek():
-                    obj.push(sorted_stack.pop())
-                    sorted_stack.push(temp)
-                else:
-                    sorted_stack.push(temp)
-        while not sorted_stack.is_empty():
-            temp = sorted_stack.pop()
-            obj.push(temp)
-    obj.print_stack()
+# def sort_stack(obj:Stack):
+#     if obj.is_empty():
+#         return None
+#     else:
+#         sorted_stack = Stack()
+#         while not obj.is_empty():
+#             temp = obj.pop()
+#             if sorted_stack.is_empty():
+#                 sorted_stack.push(temp)
+#             else:
+#                 if temp < sorted_stack.peek():
+#                     obj.push(sorted_stack.pop())
+#                     while not sorted_stack.is_empty():
+#                         if temp < sorted_stack.peek():
+#                             obj.push(sorted_stack.pop())
+#                         else:
+#                             break
+#                     sorted_stack.push(temp)
+#                 else:
+#                     sorted_stack.push(temp)
+#         while not sorted_stack.is_empty():
+#             temp = sorted_stack.pop()
+#             obj.push(temp)
+#         return obj
                          
+def sort_stack(obj:Stack):
+    additional_stack = Stack()
+ 
+    while not obj.is_empty():
+        temp = obj.pop()
+ 
+        while not additional_stack.is_empty() and additional_stack.peek() > temp:
+            obj.push(additional_stack.pop())
+ 
+        additional_stack.push(temp)
+ 
+    while not additional_stack.is_empty():
+        obj.push(additional_stack.pop())
+    return obj.print_stack()
 
-mystack = Stack()
-mystack.push(5)
-mystack.push(3)
-mystack.push(1)
-mystack.push(4)
-mystack.push(8)
 
-sort_stack(mystack)
+#Queue implementaion using stack(using list)
+
+class MyQueue:
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+        
+    def enqueue(self, value):
+        while len(self.stack1) > 0:
+            self.stack2.append(self.stack1.pop())
+        self.stack1.append(value)
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop())
+
+    def dequeue(self):
+        if self.is_empty():
+            return None
+        else:
+            temp = self.stack1.pop()
+            return temp
+
+    def peek(self):
+        return self.stack1[-1]
+
+    def is_empty(self):
+        return len(self.stack1) == 0
 
