@@ -30,21 +30,24 @@ def matchingStrings(strings, queries):
 
 #lonely integer
 
-def lonelyinteger(a):
-    j = 0
-    while j<len(a):
-        unique = a[j]
-        for i in range(j+1,len(a)):
-            if a[i]==unique:
-                j+=1
-    return unique    
+def lonelyinteger(a:list):
+    for i in range(len(a)):
+        count = 0
+        un = a[i]
+        for j in range(len(a)):
+            if un == a[j]:
+                count+=1
+        if count == 1:
+            return un
+    return None
+
                 
         
 
 
         
 
-a = [1,2,3,4,1,2,3]
+a = [1,2,3,4,1,2,3,]
 print(lonelyinteger(a))
 
 
