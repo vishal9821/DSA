@@ -124,3 +124,81 @@ class MyQueue:
     def is_empty(self):
         return len(self.stack1) == 0
 
+# hash Table 
+
+#list in common using dictionry 
+def item_in_common(list1,list2):
+    mydict = {}
+    for i in list1:
+        mydict[i] = True
+    for i in list2:
+        if i in mydict:
+            return True
+    return False
+
+#duplicate value 
+
+def find_duplicates(inputList):
+    outputList = []
+    hashtable = {}
+    for i in range(len(inputList)):
+        if inputList[i] not in hashtable:
+            hashtable[inputList[i]] = True
+        else:
+            hashtable[inputList[i]] = False
+    for i in inputList:
+        if not hashtable[i] and i not in outputList:
+            outputList.append(i)
+    return outputList
+
+# first non repeating char
+
+def first_non_repeating_char(string):
+    hashTable = {}
+    temp = []
+    for i in string:
+        if i not in hashTable:
+            hashTable[i] = True
+        else:
+            hashTable[i] = False
+    for i in string:
+        if hashTable[i] and len(temp)<1:
+            temp.append(i)
+            
+    if len(temp):
+        return ''.join(temp)
+    else:
+        return None
+    
+
+# group the anagrams
+def group_anagrams(strings):
+    hashtable = [None]*7
+    outputvalue = []
+    for i in strings:
+        sum = 0
+        for j in i:
+            temp = ord(j)
+            sum = sum+temp
+        index = sum%len(hashtable)
+        if hashtable[index] is None:
+            hashtable[index] = []
+        hashtable[index].append([i,sum])
+    for i in range(len(hashtable)):
+        if hashtable[i] is not None:
+            temp = []
+            for j in range(len(hashtable[i])):
+                temp.append(hashtable[i][j][0])
+            outputvalue.append(temp)
+    return(outputvalue)
+
+# two sum
+
+def two_sum(nums,target):
+    hashtable = {}
+    for i , num in enumerate(nums):
+        complement = target - num
+        if complement in hashtable:
+            return [hashtable[complement],i]
+        hashtable[num] = i
+    return []
