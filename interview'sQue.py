@@ -202,3 +202,46 @@ def two_sum(nums,target):
             return [hashtable[complement],i]
         hashtable[num] = i
     return []
+
+#subarray_sum
+def subarray_sum(arr,target):
+    hashtable = {0:-1}
+    current_sum = 0
+    for i , num in enumerate(arr):
+        current_sum+=num
+        if current_sum-target in hashtable:
+            starting_index = hashtable[current_sum-target]+1
+            return [starting_index,i]
+        hashtable[current_sum] = i
+        print(current_sum)
+        print(hashtable)
+        print(current_sum-target)
+    return []
+
+#find pairs (sets datatype)
+def find_pairs(arr1, arr2, target):
+    set1 = set(arr1)
+    pairs = []
+    for num in arr2:
+        complement = target - num
+        if complement in set1:
+            pairs.append((complement, num))
+    return pairs
+
+#Longest Consecutive Sequence
+def longest_consecutive_sequence(nums):
+    num_set = set(nums)
+    longest_sequence = 0
+    
+    for num in nums:
+        if num - 1 not in num_set:
+            current_num = num
+            current_sequence = 1
+            
+            while current_num + 1 in num_set:
+                current_num += 1
+                current_sequence += 1
+            
+            longest_sequence = max(longest_sequence, current_sequence)
+    
+    return longest_sequence
